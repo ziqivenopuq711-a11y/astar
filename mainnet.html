@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mainnet | Astar Network</title>
+  <meta name="description" content="Astar mainnet parameters: relay chain Polkadot, native token ASTR, RPC endpoints, Shiden canary network.">
+  <link rel="stylesheet" href="1de98341b7e33ab1.css">
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+      <a href="index.html" class="font-bold text-lg text-gray-900">Astar Network</a>
+      <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium text-gray-600">
+        <a href="index.html" class="hover:text-green-600">Home</a>
+        <a href="documentation.html" class="hover:text-green-600">Documentation</a>
+        <a href="develop.html" class="hover:text-green-600">Develop</a>
+        <a href="mainnet.html" class="hover:text-green-600">Mainnet</a>
+        <a href="ecosystem.html" class="hover:text-green-600">Ecosystem</a>
+        <a href="network.html" class="hover:text-green-600">Network</a>
+        <a href="testnet.html" class="hover:text-green-600">Testnet</a>
+        <a href="node.html" class="hover:text-green-600">Node</a>
+        <a href="rpc.html" class="hover:text-green-600">RPC</a>
+        <a href="methods.html" class="hover:text-green-600">Methods</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto px-4 py-10 flex flex-col gap-10">
+    <section class="flex flex-col gap-4">
+      <h1 class="text-3xl font-bold text-gray-900">Astar Mainnet</h1>
+      <p class="text-lg text-gray-600">Astar mainnet is a Polkadot parachain (slot 2006) secured by Polkadot's shared security. It supports both EVM and WASM smart contracts, features the Build2Earn dApp staking mechanism, and is fully compatible with Ethereum tooling via its Frontier EVM layer. The native token is ASTR, used for gas fees, staking, and governance.</p>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Mainnet Parameters</h2>
+      <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Parameter</th>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Value</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr><td class="px-4 py-3 text-gray-600">Network Name</td><td class="px-4 py-3 font-mono">Astar</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">Relay Chain</td><td class="px-4 py-3 font-mono">Polkadot</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">Parachain ID</td><td class="px-4 py-3 font-mono">2006</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">Native Token</td><td class="px-4 py-3 font-mono">ASTR</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">EVM Chain ID</td><td class="px-4 py-3 font-mono">592</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">Block Time</td><td class="px-4 py-3 font-mono">~6 seconds (Async Backing)</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">Token Decimals</td><td class="px-4 py-3 font-mono">18</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">Block Explorer</td><td class="px-4 py-3"><a href="https://astar.subscan.io/" class="text-green-600 hover:underline font-mono">astar.subscan.io</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Dwellir RPC Endpoints</h2>
+      <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Type</th>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Endpoint</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr><td class="px-4 py-3 text-gray-600">HTTPS</td><td class="px-4 py-3 font-mono text-xs break-all">https://api-astar.n.dwellir.com/YOUR_API_KEY</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">WebSocket</td><td class="px-4 py-3 font-mono text-xs break-all">wss://api-astar.n.dwellir.com/YOUR_API_KEY</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-gray-500">Replace <code class="font-mono bg-gray-100 px-1 rounded">YOUR_API_KEY</code> with the key from your <a href="https://dashboard.dwellir.com/" class="text-green-600 hover:underline">Dwellir dashboard</a>.</p>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Shiden — Canary Network</h2>
+      <p class="text-gray-600">Shiden Network is Astar's canary network, deployed on Kusama as parachain 2007. It shares the same runtime codebase as Astar and serves as the final production test environment before mainnet upgrades. All major features (dApp staking, EVM, WASM) are validated on Shiden first.</p>
+      <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Parameter</th>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Value</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr><td class="px-4 py-3 text-gray-600">Relay Chain</td><td class="px-4 py-3 font-mono">Kusama</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">Parachain ID</td><td class="px-4 py-3 font-mono">2007</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">Native Token</td><td class="px-4 py-3 font-mono">SDN</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">EVM Chain ID</td><td class="px-4 py-3 font-mono">336</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">HTTPS Endpoint</td><td class="px-4 py-3 font-mono text-xs">https://api-shiden.n.dwellir.com/YOUR_API_KEY</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">WS Endpoint</td><td class="px-4 py-3 font-mono text-xs">wss://api-shiden.n.dwellir.com/YOUR_API_KEY</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Deployment Pipeline</h2>
+      <p class="text-gray-600">The recommended workflow for new protocols is to progress through the network tiers:</p>
+      <ol class="list-decimal list-inside flex flex-col gap-2 text-gray-700">
+        <li><strong>Shibuya testnet</strong> — Free test tokens (SBY), full feature parity, no economic risk.</li>
+        <li><strong>Shiden canary</strong> — Real SDN tokens, Kusama relay security, final integration testing.</li>
+        <li><strong>Astar mainnet</strong> — Production deployment with ASTR token, full Polkadot security.</li>
+      </ol>
+    </section>
+  </main>
+  <footer class="bg-gray-50 border-t border-gray-200 mt-16 py-8">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col gap-2 text-sm text-gray-600">
+      <p>Astar Network RPC infrastructure powered by <strong>Dwellir</strong></p>
+      <p>Support: <a href="mailto:support@dwellir.com" class="text-green-600 hover:underline">support@dwellir.com</a></p>
+      <p>Dashboard: <a href="https://dashboard.dwellir.com/" class="text-green-600 hover:underline">https://dashboard.dwellir.com/</a></p>
+      <p class="mt-2 text-gray-400">&copy; 2025 Dwellir. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

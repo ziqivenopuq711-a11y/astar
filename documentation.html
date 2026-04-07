@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation | Astar Network</title>
+  <meta name="description" content="Astar Network documentation overview: parachain architecture, dual VM, dApp staking, Agile Coretime.">
+  <link rel="stylesheet" href="1de98341b7e33ab1.css">
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+      <a href="index.html" class="font-bold text-lg text-gray-900">Astar Network</a>
+      <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium text-gray-600">
+        <a href="index.html" class="hover:text-green-600">Home</a>
+        <a href="documentation.html" class="hover:text-green-600">Documentation</a>
+        <a href="develop.html" class="hover:text-green-600">Develop</a>
+        <a href="mainnet.html" class="hover:text-green-600">Mainnet</a>
+        <a href="ecosystem.html" class="hover:text-green-600">Ecosystem</a>
+        <a href="network.html" class="hover:text-green-600">Network</a>
+        <a href="testnet.html" class="hover:text-green-600">Testnet</a>
+        <a href="node.html" class="hover:text-green-600">Node</a>
+        <a href="rpc.html" class="hover:text-green-600">RPC</a>
+        <a href="methods.html" class="hover:text-green-600">Methods</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto px-4 py-10 flex flex-col gap-10">
+    <section class="flex flex-col gap-4">
+      <h1 class="text-3xl font-bold text-gray-900">Astar Network Documentation</h1>
+      <p class="text-lg text-gray-600">Astar Network is a Polkadot parachain (slot 2006) providing a multichain smart contract platform that supports both EVM-compatible (Solidity) and WASM-based (ink!) smart contracts. It bridges the Ethereum developer ecosystem with the security and interoperability of Polkadot, enabling cross-chain messaging via XCM and native dApp monetisation through Build2Earn staking.</p>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Table of Contents</h2>
+      <ul class="grid grid-cols-2 gap-3" style="grid-template-columns: repeat(auto-fit, minmax(220px,1fr));">
+        <li><a href="develop.html" class="flex items-center gap-2 bg-white border border-gray-200 rounded-xl p-4 hover:border-green-400"><span class="font-medium">Developer Guide</span></a></li>
+        <li><a href="mainnet.html" class="flex items-center gap-2 bg-white border border-gray-200 rounded-xl p-4 hover:border-green-400"><span class="font-medium">Mainnet Parameters</span></a></li>
+        <li><a href="ecosystem.html" class="flex items-center gap-2 bg-white border border-gray-200 rounded-xl p-4 hover:border-green-400"><span class="font-medium">Ecosystem</span></a></li>
+        <li><a href="network.html" class="flex items-center gap-2 bg-white border border-gray-200 rounded-xl p-4 hover:border-green-400"><span class="font-medium">Network Architecture</span></a></li>
+        <li><a href="testnet.html" class="flex items-center gap-2 bg-white border border-gray-200 rounded-xl p-4 hover:border-green-400"><span class="font-medium">Shibuya Testnet</span></a></li>
+        <li><a href="node.html" class="flex items-center gap-2 bg-white border border-gray-200 rounded-xl p-4 hover:border-green-400"><span class="font-medium">Running a Node</span></a></li>
+        <li><a href="rpc.html" class="flex items-center gap-2 bg-white border border-gray-200 rounded-xl p-4 hover:border-green-400"><span class="font-medium">RPC Endpoints</span></a></li>
+        <li><a href="methods.html" class="flex items-center gap-2 bg-white border border-gray-200 rounded-xl p-4 hover:border-green-400"><span class="font-medium">RPC Methods</span></a></li>
+      </ul>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Key Concepts</h2>
+      <div class="grid gap-4" style="grid-template-columns: repeat(auto-fit, minmax(280px,1fr));">
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">Parachain Architecture</h3>
+          <p class="text-gray-600 text-sm">Astar is secured by Polkadot validators as parachain 2006. Blocks are produced by Astar collators and finalized by the relay chain, inheriting Polkadot's shared security model without needing its own validator set.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">Dual VM Execution</h3>
+          <p class="text-gray-600 text-sm">Astar runs two parallel virtual machines: the Frontier EVM layer (for Solidity/Vyper contracts using <code class="font-mono text-xs bg-gray-100 px-1 rounded">eth_*</code> JSON-RPC) and the Substrate WASM runtime (for ink! contracts). Each has its own address space but can interoperate via precompiles.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">dApp Staking (Build2Earn)</h3>
+          <p class="text-gray-600 text-sm">Developers register dApps in the staking registry. Token holders stake ASTR on registered dApps. At the end of each era, stakers earn a portion of ASTR inflation, and developers earn a developer reward share based on the total stake attracted.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">Agile Coretime</h3>
+          <p class="text-gray-600 text-sm">With Polkadot 2.0, Astar benefits from Agile Coretime — a flexible execution core scheduling model. Instead of fixed parachain slots, Astar can purchase bulk coretime on the open market, enabling fine-grained resource allocation and potential on-demand block production.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Getting Started</h2>
+      <ol class="list-decimal list-inside flex flex-col gap-2 text-gray-700">
+        <li>Register at <a href="https://dashboard.dwellir.com/" class="text-green-600 hover:underline">dashboard.dwellir.com</a> to get your API key.</li>
+        <li>Choose your endpoint: HTTPS for request/response, WebSocket for subscriptions.</li>
+        <li>Connect using <code class="font-mono text-sm bg-gray-100 px-1 rounded">@polkadot/api</code> (Substrate) or <code class="font-mono text-sm bg-gray-100 px-1 rounded">ethers.js</code> / <code class="font-mono text-sm bg-gray-100 px-1 rounded">viem</code> (EVM).</li>
+        <li>Deploy contracts on Shibuya testnet, graduate to Shiden canary, then Astar mainnet.</li>
+        <li>Register your dApp in the Build2Earn staking registry to earn protocol rewards.</li>
+      </ol>
+    </section>
+  </main>
+  <footer class="bg-gray-50 border-t border-gray-200 mt-16 py-8">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col gap-2 text-sm text-gray-600">
+      <p>Astar Network RPC infrastructure powered by <strong>Dwellir</strong></p>
+      <p>Support: <a href="mailto:support@dwellir.com" class="text-green-600 hover:underline">support@dwellir.com</a></p>
+      <p>Dashboard: <a href="https://dashboard.dwellir.com/" class="text-green-600 hover:underline">https://dashboard.dwellir.com/</a></p>
+      <p class="mt-2 text-gray-400">&copy; 2025 Dwellir. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

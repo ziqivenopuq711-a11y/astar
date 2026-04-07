@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Develop | Astar Network</title>
+  <meta name="description" content="Developer guide for Astar Network: Substrate and EVM SDK setup, smart contract deployment, tooling.">
+  <link rel="stylesheet" href="1de98341b7e33ab1.css">
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+      <a href="index.html" class="font-bold text-lg text-gray-900">Astar Network</a>
+      <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium text-gray-600">
+        <a href="index.html" class="hover:text-green-600">Home</a>
+        <a href="documentation.html" class="hover:text-green-600">Documentation</a>
+        <a href="develop.html" class="hover:text-green-600">Develop</a>
+        <a href="mainnet.html" class="hover:text-green-600">Mainnet</a>
+        <a href="ecosystem.html" class="hover:text-green-600">Ecosystem</a>
+        <a href="network.html" class="hover:text-green-600">Network</a>
+        <a href="testnet.html" class="hover:text-green-600">Testnet</a>
+        <a href="node.html" class="hover:text-green-600">Node</a>
+        <a href="rpc.html" class="hover:text-green-600">RPC</a>
+        <a href="methods.html" class="hover:text-green-600">Methods</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto px-4 py-10 flex flex-col gap-10">
+    <section class="flex flex-col gap-4">
+      <h1 class="text-3xl font-bold text-gray-900">Developer Guide</h1>
+      <p class="text-lg text-gray-600">Astar Network supports two developer tracks: EVM (Solidity/Vyper contracts using standard Ethereum tooling) and WASM (ink! contracts using Rust-based cargo-contract). Both tracks share the same underlying parachain infrastructure and can interoperate through Astar's XVM (Cross-Virtual Machine) precompiles.</p>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">EVM — ethers.js / viem</h2>
+      <p class="text-gray-600">The Frontier EVM layer on Astar exposes a standard <code class="font-mono text-sm">eth_*</code> JSON-RPC surface. Any Ethereum library works out of the box. Replace the RPC URL with your Dwellir endpoint.</p>
+      <pre class="bg-gray-900 text-green-400 rounded-xl p-5 text-sm overflow-x-auto font-mono"><code>// ethers.js v6
+import { JsonRpcProvider } from "ethers";
+
+const provider = new JsonRpcProvider(
+  "https://api-astar.n.dwellir.com/YOUR_API_KEY"
+);
+
+const blockNumber = await provider.getBlockNumber();
+console.log("Astar block:", blockNumber);
+
+// viem
+import { createPublicClient, http } from "viem";
+import { defineChain } from "viem";
+
+const astar = defineChain({
+  id: 592,
+  name: "Astar",
+  nativeCurrency: { name: "Astar", symbol: "ASTR", decimals: 18 },
+  rpcUrls: {
+    default: { http: ["https://api-astar.n.dwellir.com/YOUR_API_KEY"] },
+  },
+});
+
+const client = createPublicClient({ chain: astar, transport: http() });
+const block = await client.getBlockNumber();</code></pre>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Substrate — @polkadot/api</h2>
+      <p class="text-gray-600">For Substrate-native queries (staking, governance, storage) use the Polkadot.js API over WebSocket. This exposes the full <code class="font-mono text-sm">chain_*</code>, <code class="font-mono text-sm">state_*</code>, and <code class="font-mono text-sm">system_*</code> RPC surface.</p>
+      <pre class="bg-gray-900 text-green-400 rounded-xl p-5 text-sm overflow-x-auto font-mono"><code>import { ApiPromise, WsProvider } from "@polkadot/api";
+
+async function connect() {
+  const provider = new WsProvider(
+    "wss://api-astar.n.dwellir.com/YOUR_API_KEY"
+  );
+  const api = await ApiPromise.create({ provider });
+
+  const header = await api.rpc.chain.getHeader();
+  console.log("Best block:", header.number.toNumber());
+
+  const [chain, nodeName, nodeVersion] = await Promise.all([
+    api.rpc.system.chain(),
+    api.rpc.system.name(),
+    api.rpc.system.version(),
+  ]);
+  console.log(`Connected to ${chain} using ${nodeName} v${nodeVersion}`);
+}
+
+connect();</code></pre>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Smart Contract Deployment</h2>
+      <div class="grid gap-4" style="grid-template-columns: repeat(auto-fit, minmax(280px,1fr));">
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">EVM — Solidity (Hardhat / Foundry)</h3>
+          <p class="text-gray-600 text-sm mb-3">Configure <code class="font-mono text-xs bg-gray-100 px-1 rounded">hardhat.config.ts</code> with Astar's network (Chain ID 592) and your Dwellir endpoint. Use Foundry's <code class="font-mono text-xs bg-gray-100 px-1 rounded">forge create</code> for rapid deployments.</p>
+          <pre class="bg-gray-100 rounded-lg p-3 text-xs font-mono overflow-x-auto">networks: {
+  astar: {
+    url: "https://api-astar.n.dwellir.com/KEY",
+    chainId: 592,
+    accounts: [PRIVATE_KEY]
+  }
+}</pre>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">WASM — ink! (cargo-contract)</h3>
+          <p class="text-gray-600 text-sm mb-3">Install <code class="font-mono text-xs bg-gray-100 px-1 rounded">cargo-contract</code> via Cargo. Build and deploy ink! contracts to Astar's Contracts pallet using the Contracts UI or CLI.</p>
+          <pre class="bg-gray-100 rounded-lg p-3 text-xs font-mono overflow-x-auto">cargo install cargo-contract
+cargo contract new my_contract
+cargo contract build --release
+cargo contract instantiate   --suri //Alice   --url wss://api-astar.n.dwellir.com/KEY</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Recommended Tooling</h2>
+      <ul class="grid gap-2 text-gray-700" style="grid-template-columns: repeat(auto-fit, minmax(250px,1fr));">
+        <li class="bg-white border border-gray-200 rounded-lg p-3"><strong>Hardhat</strong> — EVM contract development framework</li>
+        <li class="bg-white border border-gray-200 rounded-lg p-3"><strong>Foundry</strong> — Fast Solidity testing &amp; deployment</li>
+        <li class="bg-white border border-gray-200 rounded-lg p-3"><strong>Remix IDE</strong> — Browser-based Solidity IDE with EVM deploy</li>
+        <li class="bg-white border border-gray-200 rounded-lg p-3"><strong>cargo-contract</strong> — ink! WASM contract CLI</li>
+        <li class="bg-white border border-gray-200 rounded-lg p-3"><strong>Polkadot.js Apps</strong> — Substrate chain explorer &amp; extrinsic builder</li>
+        <li class="bg-white border border-gray-200 rounded-lg p-3"><strong>Astar Subscan</strong> — Block explorer at <a href="https://astar.subscan.io/" class="text-green-600 hover:underline">astar.subscan.io</a></li>
+      </ul>
+    </section>
+  </main>
+  <footer class="bg-gray-50 border-t border-gray-200 mt-16 py-8">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col gap-2 text-sm text-gray-600">
+      <p>Astar Network RPC infrastructure powered by <strong>Dwellir</strong></p>
+      <p>Support: <a href="mailto:support@dwellir.com" class="text-green-600 hover:underline">support@dwellir.com</a></p>
+      <p>Dashboard: <a href="https://dashboard.dwellir.com/" class="text-green-600 hover:underline">https://dashboard.dwellir.com/</a></p>
+      <p class="mt-2 text-gray-400">&copy; 2025 Dwellir. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
