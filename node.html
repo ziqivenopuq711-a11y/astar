@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Node | Astar Network</title>
+  <meta name="description" content="Running an Astar collator or full node: hardware requirements, installation, node types, and monitoring.">
+  <link rel="stylesheet" href="1de98341b7e33ab1.css">
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+      <a href="index.html" class="font-bold text-lg text-gray-900">Astar Network</a>
+      <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium text-gray-600">
+        <a href="index.html" class="hover:text-green-600">Home</a>
+        <a href="documentation.html" class="hover:text-green-600">Documentation</a>
+        <a href="develop.html" class="hover:text-green-600">Develop</a>
+        <a href="mainnet.html" class="hover:text-green-600">Mainnet</a>
+        <a href="ecosystem.html" class="hover:text-green-600">Ecosystem</a>
+        <a href="network.html" class="hover:text-green-600">Network</a>
+        <a href="testnet.html" class="hover:text-green-600">Testnet</a>
+        <a href="node.html" class="hover:text-green-600">Node</a>
+        <a href="rpc.html" class="hover:text-green-600">RPC</a>
+        <a href="methods.html" class="hover:text-green-600">Methods</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto px-4 py-10 flex flex-col gap-10">
+    <section class="flex flex-col gap-4">
+      <h1 class="text-3xl font-bold text-gray-900">Running an Astar Node</h1>
+      <p class="text-lg text-gray-600">Astar Network supports several node types: collator nodes (block producers), archive nodes (full historical state), and light clients. Collators participate in parachain block production and receive rewards. Archive nodes are used for indexers, explorers, and applications requiring historical state queries. Running your own node provides maximum decentralisation and eliminates reliance on third-party RPC providers.</p>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Node Types</h2>
+      <div class="grid gap-4" style="grid-template-columns: repeat(auto-fit, minmax(260px,1fr));">
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">Collator Node</h3>
+          <p class="text-gray-600 text-sm">Produces parachain blocks, collects extrinsics from the mempool, and submits PoV (Proof of Validity) blocks to the Polkadot relay chain validators. Collators must be whitelisted or bond a collation deposit (varies by network). They receive block rewards from the parachain.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">Archive Node</h3>
+          <p class="text-gray-600 text-sm">Retains full historical state (all blocks, all storage root snapshots). Required for <code class="font-mono text-xs bg-gray-100 px-1 rounded">state_getStorage</code> calls at historical blocks. Storage requirements are significantly higher — plan for 4 TB+ NVMe for full Astar history as the chain matures.</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">Full Node (RPC)</h3>
+          <p class="text-gray-600 text-sm">Validates all blocks and maintains current state without full history. Suitable for serving RPC requests for current-state queries, sending transactions, and subscribing to new heads. This is the standard node type for self-hosted RPC infrastructure.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Hardware Requirements</h2>
+      <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Component</th>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Minimum</th>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Recommended (Collator)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr><td class="px-4 py-3 text-gray-600">CPU</td><td class="px-4 py-3">4 cores</td><td class="px-4 py-3">8+ cores (fast single-thread)</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">RAM</td><td class="px-4 py-3">8 GB</td><td class="px-4 py-3">32 GB ECC</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">Storage</td><td class="px-4 py-3">500 GB NVMe</td><td class="px-4 py-3">2 TB+ NVMe SSD</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">Network</td><td class="px-4 py-3">100 Mbps</td><td class="px-4 py-3">1 Gbps, low latency</td></tr>
+            <tr><td class="px-4 py-3 text-gray-600">OS</td><td class="px-4 py-3" colspan="2">Ubuntu 22.04 LTS (recommended)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Installation</h2>
+      <p class="text-gray-600">Download the latest Astar binary from the official GitHub releases page and configure systemd for process management:</p>
+      <pre class="bg-gray-900 text-green-400 rounded-xl p-5 text-sm overflow-x-auto font-mono"><code># Download latest release
+RELEASE=$(curl -s https://api.github.com/repos/AstarNetwork/Astar/releases/latest   | grep tag_name | cut -d '"' -f4)
+wget "https://github.com/AstarNetwork/Astar/releases/download/${RELEASE}/astar-collator-${RELEASE}-ubuntu-x86_64.tar.gz"
+tar -xzf astar-collator-*.tar.gz
+sudo mv astar-collator /usr/local/bin/
+sudo chmod +x /usr/local/bin/astar-collator
+
+# Verify installation
+astar-collator --version
+
+# Start as full RPC node
+astar-collator   --chain astar   --rpc-port 9944   --rpc-cors all   --pruning archive   --base-path /var/lib/astar   --   --chain polkadot   --sync warp</code></pre>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Monitoring</h2>
+      <p class="text-gray-600">Astar nodes expose a Prometheus metrics endpoint on port 9615 by default (enable with <code class="font-mono text-sm bg-gray-100 px-1 rounded">--prometheus-port 9615</code>). Use Grafana with the official Astar dashboard to monitor block lag, peer count, RPC request rates, and memory usage. Set alerts for block production gaps (&gt;30s), peer count drops below 10, and disk I/O saturation.</p>
+    </section>
+  </main>
+  <footer class="bg-gray-50 border-t border-gray-200 mt-16 py-8">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col gap-2 text-sm text-gray-600">
+      <p>Astar Network RPC infrastructure powered by <strong>Dwellir</strong></p>
+      <p>Support: <a href="mailto:support@dwellir.com" class="text-green-600 hover:underline">support@dwellir.com</a></p>
+      <p>Dashboard: <a href="https://dashboard.dwellir.com/" class="text-green-600 hover:underline">https://dashboard.dwellir.com/</a></p>
+      <p class="mt-2 text-gray-400">&copy; 2025 Dwellir. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

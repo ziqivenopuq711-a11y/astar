@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Network | Astar Network</title>
+  <meta name="description" content="Astar Network architecture: Substrate + Frontier EVM layer, Asynchronous Backing, Agile Coretime, network parameters.">
+  <link rel="stylesheet" href="1de98341b7e33ab1.css">
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between flex-wrap gap-2">
+      <a href="index.html" class="font-bold text-lg text-gray-900">Astar Network</a>
+      <nav class="flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium text-gray-600">
+        <a href="index.html" class="hover:text-green-600">Home</a>
+        <a href="documentation.html" class="hover:text-green-600">Documentation</a>
+        <a href="develop.html" class="hover:text-green-600">Develop</a>
+        <a href="mainnet.html" class="hover:text-green-600">Mainnet</a>
+        <a href="ecosystem.html" class="hover:text-green-600">Ecosystem</a>
+        <a href="network.html" class="hover:text-green-600">Network</a>
+        <a href="testnet.html" class="hover:text-green-600">Testnet</a>
+        <a href="node.html" class="hover:text-green-600">Node</a>
+        <a href="rpc.html" class="hover:text-green-600">RPC</a>
+        <a href="methods.html" class="hover:text-green-600">Methods</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto px-4 py-10 flex flex-col gap-10">
+    <section class="flex flex-col gap-4">
+      <h1 class="text-3xl font-bold text-gray-900">Network Architecture</h1>
+      <p class="text-lg text-gray-600">Astar Network is built on Substrate, the modular blockchain framework developed by Parity Technologies. Its runtime includes the Frontier pallet stack, which adds a full Ethereum-compatible execution environment on top of Substrate's WASM runtime. This dual-layer architecture enables Astar to serve both Ethereum and Polkadot developers with a single chain.</p>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Network Parameters</h2>
+      <div class="bg-white border border-gray-200 rounded-xl overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 border-b border-gray-200">
+            <tr>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Parameter</th>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Astar</th>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Shiden</th>
+              <th class="text-left px-4 py-3 font-semibold text-gray-700">Shibuya</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr>
+              <td class="px-4 py-3 text-gray-600">Relay Chain</td>
+              <td class="px-4 py-3 font-mono">Polkadot</td>
+              <td class="px-4 py-3 font-mono">Kusama</td>
+              <td class="px-4 py-3 font-mono">Tokyo (testnet)</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-gray-600">Native Token</td>
+              <td class="px-4 py-3 font-mono">ASTR</td>
+              <td class="px-4 py-3 font-mono">SDN</td>
+              <td class="px-4 py-3 font-mono">SBY</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-gray-600">EVM Chain ID</td>
+              <td class="px-4 py-3 font-mono">592</td>
+              <td class="px-4 py-3 font-mono">336</td>
+              <td class="px-4 py-3 font-mono">81</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-gray-600">Block Time</td>
+              <td class="px-4 py-3 font-mono">~6s</td>
+              <td class="px-4 py-3 font-mono">~12s</td>
+              <td class="px-4 py-3 font-mono">~12s</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 text-gray-600">Parachain ID</td>
+              <td class="px-4 py-3 font-mono">2006</td>
+              <td class="px-4 py-3 font-mono">2007</td>
+              <td class="px-4 py-3 font-mono">1000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Substrate + Frontier EVM Layer</h2>
+      <p class="text-gray-600">Astar's EVM implementation uses Parity's Frontier pallet, which maps Ethereum account addresses and private keys to Substrate accounts using a unified address derivation scheme. The Frontier EVM processes transactions in a sandboxed environment within the Substrate block, producing Ethereum-compatible receipts and logs that are queryable via standard <code class="font-mono text-sm bg-gray-100 px-1 rounded">eth_*</code> methods.</p>
+      <div class="grid gap-4" style="grid-template-columns: repeat(auto-fit, minmax(280px,1fr));">
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">Ethereum RPC Surface</h3>
+          <ul class="text-gray-600 text-sm flex flex-col gap-1">
+            <li><code class="font-mono text-xs bg-gray-100 px-1 rounded">eth_*</code> — Block, transaction, log, filter queries</li>
+            <li><code class="font-mono text-xs bg-gray-100 px-1 rounded">net_*</code> — Network peer and version info</li>
+            <li><code class="font-mono text-xs bg-gray-100 px-1 rounded">web3_*</code> — Client version and SHA3</li>
+            <li><code class="font-mono text-xs bg-gray-100 px-1 rounded">eth_subscribe</code> — WebSocket push subscriptions</li>
+          </ul>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <h3 class="font-semibold text-gray-800 mb-2">Substrate RPC Surface</h3>
+          <ul class="text-gray-600 text-sm flex flex-col gap-1">
+            <li><code class="font-mono text-xs bg-gray-100 px-1 rounded">chain_*</code> — Block headers, hashes, finality</li>
+            <li><code class="font-mono text-xs bg-gray-100 px-1 rounded">state_*</code> — Runtime storage, metadata</li>
+            <li><code class="font-mono text-xs bg-gray-100 px-1 rounded">system_*</code> — Node health, peers, sync state</li>
+            <li><code class="font-mono text-xs bg-gray-100 px-1 rounded">author_*</code> — Extrinsic submission, pending pool</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Asynchronous Backing</h2>
+      <p class="text-gray-600">Asynchronous Backing is a Polkadot 2.0 upgrade that decouples block authoring from the relay chain's synchronous slot mechanism. Astar benefits from this with approximately 6-second block times on mainnet (halved from the original ~12 seconds), doubling throughput and reducing transaction confirmation latency without any changes to the EVM or Substrate API surface.</p>
+    </section>
+
+    <section class="flex flex-col gap-4">
+      <h2 class="text-2xl font-semibold text-gray-900">Agile Coretime</h2>
+      <p class="text-gray-600">Agile Coretime replaces the traditional parachain slot auction model with a flexible execution core marketplace. Astar can acquire bulk coretime for predictable block production or purchase on-demand coretime for burst workloads. This model enables more efficient use of Polkadot's shared security resources and allows Astar to scale block production dynamically based on network demand and ecosystem activity.</p>
+    </section>
+  </main>
+  <footer class="bg-gray-50 border-t border-gray-200 mt-16 py-8">
+    <div class="max-w-5xl mx-auto px-4 flex flex-col gap-2 text-sm text-gray-600">
+      <p>Astar Network RPC infrastructure powered by <strong>Dwellir</strong></p>
+      <p>Support: <a href="mailto:support@dwellir.com" class="text-green-600 hover:underline">support@dwellir.com</a></p>
+      <p>Dashboard: <a href="https://dashboard.dwellir.com/" class="text-green-600 hover:underline">https://dashboard.dwellir.com/</a></p>
+      <p class="mt-2 text-gray-400">&copy; 2025 Dwellir. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
